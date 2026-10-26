@@ -67,6 +67,20 @@ git clone https://github.com/chengangrun-ai/gongzi-teaches-code-audit.git \
 - 只列清单，不动代码。要它动手，你得另外明说。
 - 一次性。想退出：说「正常模式」或 `stop ponytail-audit`。
 
+## 同系列
+
+<p>
+  <a href="https://github.com/chengangrun-ai/gongzi-teaches-code"><img src="https://raw.githubusercontent.com/chengangrun-ai/gongzi-teaches-code/main/screenshots/01-main.png" width="32%" alt="主技能"></a>
+  <a href="https://github.com/chengangrun-ai/gongzi-teaches-code-review"><img src="https://raw.githubusercontent.com/chengangrun-ai/gongzi-teaches-code/main/screenshots/02-review.png" width="32%" alt="改动审查"></a>
+  <a href="https://github.com/chengangrun-ai/gongzi-teaches-code-debt"><img src="https://raw.githubusercontent.com/chengangrun-ai/gongzi-teaches-code/main/screenshots/04-debt.png" width="32%" alt="欠账本"></a>
+</p>
+<p>
+  <a href="https://github.com/chengangrun-ai/gongzi-teaches-code-gain"><img src="https://raw.githubusercontent.com/chengangrun-ai/gongzi-teaches-code/main/screenshots/05-gain.png" width="32%" alt="效果看板"></a>
+  <a href="https://github.com/chengangrun-ai/gongzi-teaches-code-help"><img src="https://raw.githubusercontent.com/chengangrun-ai/gongzi-teaches-code/main/screenshots/06-help.png" width="32%" alt="速查卡"></a>
+</p>
+
+> 五个配套，一个主张：最好的代码是没写的那行。
+
 ## 致谢
 
 基于 [Ponytail](https://github.com/DietrichGebert/ponytail)（MIT，作者 DietrichGebert）改写，保留了原作者的版权声明（见 `LICENSE`）。
