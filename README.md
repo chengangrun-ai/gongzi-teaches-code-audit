@@ -1,64 +1,76 @@
+中文 | [English](README.en.md)
+
 # 公子教代码做事 · 整仓审计
 
-【全仓过度设计审计】ponytail-review 的整仓版：扫整个代码库而不是单次改动， 按「能砍掉多少」从大到小排名输出清单。只出报告，不改代码。 触发词：/ponytail-audit、审计整个项目、这个仓库能删什么、找膨胀。
+一个 agent 技能，把「改动审查」放大到整个仓库：扫一遍全部代码，把能删的东西按**能砍掉多少**从大到小排名，列成一张清单。
 
-## 📺 看看效果
+只出报告，不改代码。
 
-![ponytail-audit](screenshots/hero.png)
+## 为什么有它
 
-> 把 `screenshots/hero.png` 换成真实效果图（建议 1200px 宽、不超过 400KB）
+改动审查只能看见你这次动的那几十行。真正的膨胀是攒出来的——三个月前的抽象、没人设过的配置、只有一个实现的工厂，散落在几十个文件里，谁也没空逐个看。
 
-## What This Does
+这个技能就是那个「有空逐个看」的人。它按收益排序，所以你看第一行就知道值不值得动手。
 
-【全仓过度设计审计】ponytail-review 的整仓版：扫整个代码库而不是单次改动， 按「能砍掉多少」从大到小排名输出清单。只出报告，不改代码。 触发词：/ponytail-audit、审计整个项目、这个仓库能删什么、找膨胀。
+## 它做什么
 
-### Key Features
+1. 扫整棵代码树
+2. 每条发现打标签（和改动审查同一套）：`delete:` / `stdlib:` / `native:` / `yagni:` / `shrink:`
+3. 一行一条，按「能砍多少」从大到小排：`<标签> <砍什么>. <用什么替代>. [路径]`
+4. 结尾一行 `net: -N lines, -M deps possible.`
 
-- Tags
-- Hunt
-- Output
-- Boundaries
+没得砍就说 `Lean already. Ship.`
 
-## Installation
+## 它重点找什么
 
-### WorkBuddy
+- 标准库或平台已经提供的依赖
+- 只有一个实现的接口
+- 只有一个产品的工厂
+- 只做转发的包装层
+- 只导出一个东西的文件
+- 没人用的开关和配置
+- 手写的标准库
 
-```bash
-git clone https://github.com/<you>/ponytail-audit.git ~/.workbuddy-ai/skills/ponytail-audit
-pip install -r ~/.workbuddy-ai/skills/ponytail-audit/requirements.txt
+## 长什么样
+
+```
+delete: src/legacy/sync.py, 全部 412 行，无人引用。 无替代。  [src/legacy/]
+native: 用 lodash 做 deep clone。 structuredClone()。  [src/utils/clone.js]
+yagni: IRepository + 唯一实现 SqlRepo。 内联，等第二个存储出现。  [src/db/]
+shrink: 手写分页切片。 arr.slice(i, i+n)。  [api/list.py]
+
+net: -520 lines, -2 deps possible.
 ```
 
-### Claude Code / 其他 Agent
+## 安装
 
 ```bash
-mkdir -p ~/.claude/skills/ponytail-audit
-cp -R SKILL.md README.md requirements.txt scripts references \
-      ~/.claude/skills/ponytail-audit/
+git clone https://github.com/chengangrun-ai/gongzi-teaches-code-audit.git \
+  ~/.workbuddy-ai/skills/gongzi-teaches-code-audit
 ```
 
-把仓库链接丢给 agent，它会按 `SKILL.md` 加载所需文件。
+没有依赖，不用 pip install。
 
-## Usage
+## 用法
 
-触发词：**/ponytail-audit、审计整个项目、这个仓库能删什么、找膨胀**
+```
+/ponytail-audit
+```
 
-## Architecture
+或者直接说「审计整个项目」「这个仓库能删什么」。
 
-| 文件 | 作用 |
-|---|---|
-| `SKILL.md` | 触发条件与流程 |
+## 边界
 
-## Requirements
+- 只管过度设计和复杂度。正确性 bug、安全、性能不在范围内。
+- 只列清单，不动代码。要它动手，你得另外明说。
+- 一次性。想退出：说「正常模式」或 `stop ponytail-audit`。
 
-- Python 3.9+
-- `pip install -r requirements.txt`
+## 致谢
 
-## Credits
-
-基于 [Ponytail](https://github.com/DietrichGebert/ponytail)（MIT，作者 DietrichGebert）改写 · 中文版维护 [@chengangrun-ai](https://github.com/chengangrun-ai)
-
-Created by 公子 · [@你的GitHub](https://github.com/).
+基于 [Ponytail](https://github.com/DietrichGebert/ponytail)（MIT，作者 DietrichGebert）改写，保留了原作者的版权声明（见 `LICENSE`）。
 
 ## License
 
-MIT — Use it, modify it, share it.
+MIT. See [LICENSE](LICENSE).
+
+Made by [公子](https://github.com/chengangrun-ai).
