@@ -6,6 +6,8 @@ An agent skill that scales the diff review up to the whole repo: it scans every 
 
 Report only. It does not change your code.
 
+![整仓审计：按能砍多少排名](screenshots/hero.png)
+
 ## Why it exists
 
 A diff review only sees the few dozen lines you just touched. Real bloat accumulates — an abstraction from three months ago, a config nobody sets, a factory with one product, scattered across dozens of files that nobody has time to read.
